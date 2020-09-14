@@ -11,8 +11,6 @@ const LINES_ON_PAGE = 50; // lines on page by default
 
 const SuperTable = React.memo(function({data, setData}){
 
-    // TODO индикатор загрузки
-
     // all data from response
     const [totalData, setTotalData] = useState([]);
     // client searched part of data

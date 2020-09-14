@@ -2,8 +2,6 @@ import React, {useEffect, useState} from 'react';
 
 const SuperItemAdded = React.memo(({data, setData}) => {
 
-
-    // TODO После заполнения всех инпутов активируется кнопка Добавить в таблицу которая вставляет заполненный ряд в начало таблицы
     // visible form or not
     const [isFormVisible, setIsFromVisible] = useState(false);
 
@@ -16,7 +14,7 @@ const SuperItemAdded = React.memo(({data, setData}) => {
         phone: ''
     });
 
-    // is field validate well, all true => accept avalible
+    // is field validate well, all true => accept available
     const [validator, setValidator] = useState({
         id: false,
         firstName: false,

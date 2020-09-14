@@ -4,15 +4,16 @@ import SuperHeaderTag from "./SuperHeaderTag";
 const SuperHeader = React.memo(function({columns, sortedTag, setSortedTag}){
 
     let  onClickHeaderSort = useCallback((label) => {
-        if (label === sortedTag) { // tag was already selected, invert sort
+        // tag was already selected, invert sort
+        if (label === sortedTag) {
             setSortedTag('+' + label);
         } else {
             setSortedTag(label);
         }
     }, [sortedTag, setSortedTag]);
 
-    return <thead>{/*div header*/}
-        <tr>{/*real header*/}
+    return <thead>
+        <tr>
             {(columns.length > 0 &&
                 columns.map((label, index) => <SuperHeaderTag key={index}
                                                               index={index}

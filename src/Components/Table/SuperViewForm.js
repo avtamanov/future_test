@@ -6,7 +6,6 @@ const SuperViewFrom = React.memo(function ({columns, item, setItem}) {
         setItem({visibility: 'hidden'});
     }
 
-    // let counter = 0;
     return item.visibility === 'visible' && <div>
         <div>
             <div>Выбран пользователь <b>{item.data.firstName + ' ' + item.data.lastName}</b></div>

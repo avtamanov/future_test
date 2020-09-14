@@ -8,8 +8,6 @@ const url_big = `http://www.filltext.com/?rows=1000&id={number|1000}&firstName={
 
 const Container = React.memo(function(props){
 
-    // TODO изменить запрос на сервер
-
     const [data,setData] = useState([]);
     const [preloadVis, setPreloadVis] = useState(false);
     const preloadStyle = `

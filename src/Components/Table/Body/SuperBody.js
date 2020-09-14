@@ -36,7 +36,7 @@ const SuperBody = React.memo(function({curData, sortedTag, setCurData, setItem})
         }
         }
 
-    return <tbody>{/*div body*/}
+    return <tbody>
         <tr><td>{sortedTag}</td></tr>
         {dataTablePresentation(curData) || <tr><td>body</td></tr>}
     </tbody>
