@@ -9,7 +9,9 @@ import SuperViewForm from "./SuperViewForm";
 
 const LINES_ON_PAGE = 50; // lines on page by default
 
-const SuperTable = React.memo(function(props){
+const SuperTable = React.memo(function({data, setData}){
+
+    // TODO индикатор загрузки
 
     // all data from response
     const [totalData, setTotalData] = useState([]);
@@ -46,36 +48,30 @@ const SuperTable = React.memo(function(props){
         }
     };
 
-    // save data after receiving request
+    // save data after receiving request or add new line
     useEffect(()=>{
-        if(props.data && props.data !== [] && props.data[0] !== undefined){
+        if(data && data !== [] && data[0] !== undefined){
             // set column names
             let tempColumns = []
-            for(let tempProps in props.data[0]){
+            for(let tempProps in data[0]){
                 tempColumns.push(tempProps);
             }
             setColumnsNames(tempColumns);
-            setSearchedData(props.data);
-            setTotalData(props.data);
-/*
-            // form pages
-            let shownData = [];
-            for(let i = linesOnPage*(choosenPage - 1); i < linesOnPage*choosenPage && i < props.data.length; i++){
-                shownData.push(props.data[i]);
-            }
-            setCurData(shownData);*/
+            setSearchedData(data);
+            setTotalData(data);
         }
-    },[props]);
+    },[data]);
 
+    // update pages
     useEffect(()=>{
-                // update pages
         let shownData = [];
         for(let i = linesOnPage*(choosenPage - 1); i < linesOnPage*choosenPage && i < searchedData.length; i++){
             shownData.push(searchedData[i]);
         }
         setCurData(shownData);
     }, [choosenPage, linesOnPage, searchedData, totalData]);
-    
+
+    // search data update
     useEffect(()=>{
         // search
         let searchedArr = [];
@@ -92,11 +88,11 @@ const SuperTable = React.memo(function(props){
         } else {
             setSearchedData(totalData);
         }
+        setSortedTag('');
     }, [searchStr, totalData])
 
     // save data after sort
     useEffect(() => {
-        console.log(sortedTag);
         if(sortedTag){
             if(sortedTag.includes('+')) {
                 setSearchedData([...searchedData.reverse()]);
@@ -112,12 +108,12 @@ const SuperTable = React.memo(function(props){
     return <div className='table'>
         <SuperPaginator page={choosenPage}
                         onPageClick={onPageClick}
-                        linesTotal={searchStr !== '' ? searchedData.length : props.data && props.data !== [] ? props.data.length : 0}
+                        linesTotal={searchStr !== '' ? searchedData.length : data && data !== [] ? data.length : 0}
                         linesOnPage={linesOnPage}
                         searchString={searchStr}/>
         <SuperLinesSelector lines={linesOnPage} setLines={setLinesOnPage}/>
         <SuperSearch pageClick={onPageClick} setStr={setSearchStr} />
-        <SuperItemAdded />
+        <SuperItemAdded data={data} setData={setData}/>
         <table>
             <SuperHeader columns={columnNames} sortedTag={sortedTag} setSortedTag={setSortedTag}/>
             <SuperBody curData={curData} setCurData={setCurData} setItem={setViewItem}/>
